@@ -1,12 +1,30 @@
 <?php
 
+/**
+   * SINValidator
+   * 
+   * @package    SINValidator
+   * @author     Vladislav Riemer <riemer-vladi@web.de>
+   */
 class SINValidator
 {
+    /**
+     * Valid length of SIN
+     * @var int $_VALID_LENGTH
+     */
     private int $_VALID_LENGTH  = 12;
 
+    /**
+     * Object variable for testing SIN 
+     * @var string $_TEST_SIN
+     */
     private string $_TEST_SIN   = "09 1231513613 29292";
 
-    private array $AREA_NUMBERS = array(
+    /**
+     * Defines valid area codes for social insurance number in Germany.
+     * @var array $_AREA_NUMBERS
+     */
+    private array $_AREA_NUMBERS = array(
         "Deutsche Rentenversicherung Nord" => array("02", "42", "89"),
         "Deutsche Rentenversicherung Mitteldeutschland" => array("09", "49", "80"),
         "Deutsche Rentenversicherung Braunschweig-Hannover" => array("10", "50", "80"),
@@ -28,26 +46,52 @@ class SINValidator
         "VSNR-Vergabe an Beschäftige bei Bahn- oder See-Betrieben" => array("38", "39")
     );
 
+    /**
+     * Setter for SIN
+     * 
+     * @param string $sin Social insurance number
+     * 
+     * @return void
+     */
     public function setSIN(string $sin) : void {
         $this->_TEST_SIN = $sin;
     }
 
+    /**
+     * Getter for SIN
+     * 
+     * @return string
+     */
     public function getSIN() : string {
         return $this->_TEST_SIN;
     }
 
+    /**
+     * Validator for length of social insurance number
+     * 
+     * @param string $sin Social insurance number
+     * 
+     * @return bool
+     */
     public function validateLength($sin) : bool {
         $sin = trim($sin);
 
         return strlen($sin) !== $this->_VALID_LENGTH;
     }
 
+    /**
+     * Validator for area code of social insurance number
+     * 
+     * @param string $sin Social insurance number
+     * 
+     * @return string|false
+     */
     public function validateArea($sin) : string|false {
         $sinArea = substr($sin, 2, 7);
         $arrayNo = [];
 
         // TODO: if sinArea part of $AREA_NUMBERS
-        foreach ($this->AREA_NUMBERS as $arrayNumbers) {
+        foreach ($this->_AREA_NUMBERS as $arrayNumbers) {
             foreach ($arrayNumbers as $an) {
                 array_push($arrayNo, $an);
             }
@@ -56,6 +100,13 @@ class SINValidator
         return json_encode($arrayNo);
     }
 
+    /**
+     * Main function for testing all validation functions
+     * 
+     * @param string $sin Given social insurance number
+     * 
+     * @return bool
+     */
     function validateSocialInsuranceNumber(string $sin) : bool {
         $this->validateLength($sin);
         $this->validateArea($sin);
