@@ -11,3 +11,6 @@
     // echo "valid area: " . $validator->validateArea($sin);
     echo "<br />";
     print_r("disassembled sin: " . json_encode($validator->disassambleSIN($sin)));
+
+    echo "<br />";
+    print_r("birthday: " . json_encode($validator->validateBirthday($sin)));
