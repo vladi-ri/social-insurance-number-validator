@@ -67,6 +67,44 @@ class SINValidator
     }
 
     /**
+     * Disassambles SIN into parts that need to be validated.
+     * Note: ONLY return type string while DEV.
+     * After dev: return array, without json_encode
+     * 
+     * @param string $sin Social insurance number
+     * 
+     * @return string
+     */
+    public function disassambleSIN(string $sin) : string {
+        $disassambledSIN = [];
+
+        // first 2 digits
+        $areaCode                  = str_split($sin, 2)[0];
+
+        // start at third digit, length = 6
+        $birthDay                  = substr($sin, 2, 6);
+
+        // array at position 8 (starting at index 0)
+        $startingLetterOfBirthname = $sin[8];
+
+        // two digits for defining gender at position 9
+        $genderSerialNumer         = substr($sin, 9, 2);
+
+        // checksum at position 11
+        $checksum                  = $sin[11];
+
+        array_push($disassambledSIN, [
+            $areaCode,
+            $birthDay,
+            $startingLetterOfBirthname,
+            $genderSerialNumer,
+            $checksum
+        ]);
+
+        return json_encode($disassambledSIN);
+    }
+
+    /**
      * Validator for length of social insurance number
      * 
      * @param string $sin Social insurance number
