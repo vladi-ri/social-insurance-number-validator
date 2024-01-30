@@ -169,4 +169,15 @@ class SINValidator
 
         return false;
     }
+
+    /**
+     * Extract first letter of birthname from SIN.
+     * 
+     * @param array $sin
+     * 
+     * @return string
+     */
+    public function extractStartingLetterOfBirthname(array $sin) : string {
+        return json_encode($sin[2]);
+    }
 };
