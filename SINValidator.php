@@ -68,14 +68,12 @@ class SINValidator
 
     /**
      * Disassambles SIN into parts that need to be validated.
-     * Note: ONLY return type string while DEV.
-     * After dev: return array, without json_encode
      * 
      * @param string $sin Social insurance number
      * 
      * @return string
      */
-    public function disassambleSIN(string $sin) : string {
+    public function disassambleSIN(string $sin) : array {
         $disassambledSIN = [];
 
         // first 2 digits
@@ -101,7 +99,7 @@ class SINValidator
             $checksum
         ]);
 
-        return json_encode($disassambledSIN);
+        return $disassambledSIN;
     }
 
     /**
@@ -130,12 +128,32 @@ class SINValidator
 
         // TODO: if sinArea part of $AREA_NUMBERS
         foreach ($this->_AREA_NUMBERS as $arrayNumbers) {
-            foreach ($arrayNumbers as $an) {
-                array_push($arrayNo, $an);
+            // foreach ($arrayNumbers as $an) {
+            //     // remove whitespaces
+            //     // print_r($an);
+            //     $an = trim($an);
+
+            //     // add to array
+            //     array_push($arrayNo, $an);
+            // }
+            // print("<pre>");
+            // print_r($arrayNumbers);
+            // print("</pre>");
+            foreach ($arrayNumbers as $partialArrayNumbers) {
+                if (is_array($partialArrayNumbers)) {
+                    foreach ($partialArrayNumbers as $pan) {
+                        echo in_array($sin, $arrayNo);
+                    }
+                }
             }
         }
+        // print_r($arrayNo);
 
-        return json_encode($arrayNo);
+        // check if area code is exciting
+        // print_r(in_array($sin, $arrayNo));
+
+        // return json_encode($arrayNo);
+        return "";
     }
 
     /**
