@@ -18,7 +18,7 @@ class SINValidator
      * Object variable for testing SIN 
      * @var string $_TEST_SIN
      */
-    private string $_TEST_SIN   = "09 1231513613 29292";
+    private string $_TEST_SIN   = "33 160894 W 098";
 
     /**
      * Defines valid area codes for social insurance number in Germany.
