@@ -76,6 +76,9 @@ class SINValidator
     public function disassambleSIN(string $sin) : array {
         $disassambledSIN = [];
 
+        // normalize SIN - remove whitespaces
+        $sin = preg_replace('/\s+/', '', $sin);
+
         // first 2 digits
         $areaCode                  = str_split($sin, 2)[0];
 
@@ -110,9 +113,16 @@ class SINValidator
      * @return bool
      */
     public function validateLength($sin) : bool {
-        $sin = trim($sin);
+        $sin = preg_replace('/\s+/', '', $sin);
 
-        return strlen($sin) !== $this->_VALID_LENGTH;
+        print_r($sin);
+        echo "<br />";
+
+        // remove array offset (-1)
+        // 12 characters = array from 0 - 11
+        $validLength = $this->_VALID_LENGTH - 1;
+
+        return strlen($sin) !== $validLength;
     }
 
     /**
@@ -157,6 +167,17 @@ class SINValidator
     }
 
     /**
+     * Extract first letter of birthname from SIN.
+     * 
+     * @param array $sin
+     * 
+     * @return string
+     */
+    public function extractStartingLetterOfBirthname(array $sin) : string {
+        return json_encode($sin[2]);
+    }
+
+    /**
      * Main function for testing all validation functions
      * 
      * @param string $sin Given social insurance number
@@ -168,16 +189,5 @@ class SINValidator
         $this->validateArea($sin);
 
         return false;
-    }
-
-    /**
-     * Extract first letter of birthname from SIN.
-     * 
-     * @param array $sin
-     * 
-     * @return string
-     */
-    public function extractStartingLetterOfBirthname(array $sin) : string {
-        return json_encode($sin[2]);
     }
 };
