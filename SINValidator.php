@@ -84,6 +84,13 @@ class SINValidator
     );
 
     /**
+     * Constructor
+     */
+    public function __construct(string $sin) {
+        $this->_TEST_SIN = $sin;
+    }
+
+    /**
      * Setter for SIN
      * 
      * @param string $sin Social insurance number

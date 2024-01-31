@@ -1,18 +1,8 @@
 <?php
     include("SINValidator.php");
-    $validator = new SINValidator();
-    $sin = $validator->getSIN();
-    
-    // echo $sin;
-    // echo "<br />";
-    // echo "valid length: " . $validator->validateLength($sin);
-        // TODO:
-        // echo "<br />";
-        // echo "valid area: " . $validator->validateArea($sin);
-    // echo "<br />";
-    // print_r("disassembled sin: " . json_encode($validator->disassambleSIN($sin)));
-    
-    // print_r("first letter of surname: " . $validator->extractStartingLetterOfBirthname($validator->disassambleSIN($sin)[0]));
+
+    $validator = new SINValidator("04 260887 M 08 0");
+    $sin       = $validator->getSIN();
     
     // ### TESTING EVERY STEP ###
     print_r("1. disassembled sin: " . json_encode($validator->disassambleSIN($sin)));
@@ -29,5 +19,6 @@
     echo "<br />";
     print_r("7. gender code: " . $validator->validateGenderCode($sin));
     echo "<br />";
-
-    // 7. checksum
+    // TODO: 8. checksum
+    print_r("8. checksum: " . "TODO!";
+    echo "<br />";
