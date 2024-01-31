@@ -82,8 +82,9 @@ class SINValidator
         // first 2 digits
         $areaCode                  = str_split($sin, 2)[0];
 
-        // start at third digit, length = 6
-        $birthDay                  = substr($sin, 2, 6);
+        // start at third digit, length = 7
+        // TODO: check, birthday should be just 6 digits!
+        $birthDay                  = substr($sin, 2, 7);
 
         // array at position 8 (starting at index 0)
         $startingLetterOfBirthname = $sin[8];
@@ -178,6 +179,32 @@ class SINValidator
      */
     public function extractStartingLetterOfBirthname(array $sin) : string {
         return json_encode($sin[2]);
+    }
+
+    /** 
+     * Validation of birthday part of sin
+     * 
+     * @param string $sin Given social insurance number
+     * 
+     * @return string
+     */
+    public function validateBirthday($sin) : string {
+        // filter birthday from SIN
+        $birthDay = $this->disassambleSIN($sin);
+        $birthDay = $birthDay[0][1];
+
+        // generate array for comparison (DD/MM/YY)
+        $birthDay = str_split($birthDay, 2);
+
+        $dateValidator = new DateTime();
+        $day           = $birthDay[0];
+        $month         = $birthDay[1];
+        $year          = $birthDay[2];
+
+        $dateValidator->setDate($year, $month, $day);
+        $birthDay      = $dateValidator->format('d-m-y');
+
+        return $birthDay;        
     }
 
     /**
