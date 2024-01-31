@@ -19,8 +19,12 @@
     echo "<br />";
     print_r("2. valid length: " . $validator->validateLength($sin));
     echo "<br />";
-    print_r("3. valid area: " . $validator->validateArea($sin));
+    print_r("3. valid area: " . json_encode($validator->validateArea($sin)));
     echo "<br />";
-    print_r("4. valid date: " . $validator->validateBirthday($sin));
+    print_r("4. birthday: " . $validator->validateBirthday($sin));
     echo "<br />";
-    print_r("5. birthday: " . json_encode($validator->validateBirthday($sin)));
+    print_r("5. first letter of birthname: " . $validator->extractStartingLetterOfBirthname($sin));
+
+    // TODO:
+    // 6. serial number (gender code)
+    // 7. checksum

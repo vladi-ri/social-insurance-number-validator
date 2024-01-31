@@ -1,11 +1,11 @@
 <?php
 
 /**
-   * SINValidator
-   * 
-   * @package    SINValidator
-   * @author     Vladislav Riemer <riemer-vladi@web.de>
-   */
+ * SINValidator
+ * 
+ * @package    SINValidator
+ * @author     Vladislav Riemer <riemer-vladi@web.de>
+ */
 class SINValidator
 {
     /**
@@ -18,32 +18,69 @@ class SINValidator
      * Object variable for testing SIN 
      * @var string $_TEST_SIN
      */
-    private string $_TEST_SIN   = "33 160894 W 098";
+    private string $_TEST_SIN   = "03 160894 W 098";
 
     /**
      * Defines valid area codes for social insurance number in Germany.
      * @var array $_AREA_NUMBERS
      */
     private array $_AREA_NUMBERS = array(
-        "Deutsche Rentenversicherung Nord" => array("02", "42", "89"),
-        "Deutsche Rentenversicherung Mitteldeutschland" => array("09", "49", "80"),
-        "Deutsche Rentenversicherung Braunschweig-Hannover" => array("10", "50", "80"),
-        "Deutsche Rentenversicherung Westfalen" => array("11", "51", "80"),
-        "Deutsche Rentenversicherung Hessen" => array("12", "52", "81"),
-        "Deutsche Rentenversicherung Rheinland" => array("13", "53", "81"),
-        "Deutsche Rentenversicherung Bayern Süd" => array("14", "54", "82"),
-        "Deutsche Rentenversicherung Bayern Süd" => array("15", "55", "82"),
-        "Deutsche Rentenversicherung Rheinland-Pfalz" => array("16", "56", "82"),
-        "Deutsche Rentenversicherung für das Saarland" => array("17", "57", "82"),
-        "Deutsche Rentenversicherung Oberfranken und Mittelfranken" => array("18", "58", "82"),
-        "Deutsche Rentenversicherung Nord" => array("19", "59", "80"),
-        "Deutsche Rentenversicherung Unterfranken" => array("20", "60", "82"),
-        "Deutsche Rentenversicherung Schwaben" => array("21", "61", "82"),
-        "Deutsche Rentenversicherung Baden-Württemberg" => array(array("23", "24"), array("63", "64"), "82"),
-        "Deutsche Rentenversicherung Berlin-Brandenburg" => array("25", "65", "80"),
-        "Deutsche Rentenversicherung Nord" => array("26", "66", "80"),
-        "Deutsche Rentenversicherung Oldenburg-Bremen" => array("28", "68", "80"),
-        "VSNR-Vergabe an Beschäftige bei Bahn- oder See-Betrieben" => array("38", "39")
+        "Deutsche Rentenversicherung Nord (Mecklenburg-Vorpommern)" => "02",
+        "Deutsche Rentenversicherung Mitteldeutschland (Thüringen)" => "03",
+        "Deutsche Rentenversicherung Berlin-Brandenburg (Brandenburg)" => "04",
+        "Deutsche Rentenversicherung Mitteldeutschland (Sachsen-Anhalt)" => "08",
+        "Deutsche Rentenversicherung Mitteldeutschland (Sachsen)" => "09",
+        "Deutsche Rentenversicherung Braunschweig-Hannover (Hannover)" => "10",
+        "Deutsche Rentenversicherung Westfalen" => "11",
+        "Deutsche Rentenversicherung Hessen" => "12",
+        "Deutsche Rentenversicherung Rheinland (Rheinprovinz)" => "13",
+        "Deutsche Rentenversicherung Bayern Süd (Oberbayern)" => "14",
+        "Deutsche Rentenversicherung Bayern Süd (Niederbayern-Oberpfalz)" => "15",
+        "Deutsche Rentenversicherung Rheinland-Pfalz" => "16",
+        "Deutsche Rentenversicherung Saarland" => "17",
+        "Deutsche Rentenversicherung Nordbayern (Ober- und Mittelfranken)" => "18",
+        "Deutsche Rentenversicherung Nord (Hamburg)" => "19",
+        "Deutsche Rentenversicherung Nordbayern (Unterfranken)" => "20",
+        "Deutsche Rentenversicherung Schwaben" => "21",
+        "Deutsche Rentenversicherung Baden-Württemberg (Württemberg)" => "23",
+        "Deutsche Rentenversicherung Baden-Württemberg (Baden)" => "24",
+        "Deutsche Rentenversicherung Berlin-Brandenburg (Berlin)" => "25",
+        "Deutsche Rentenversicherung Nord (Schleswig-Holstein)" => "26",
+        "Deutsche Rentenversicherung Oldenburg-Bremen" => "28",
+        "Deutsche Rentenversicherung Braunschweig-Hannover (Braunschweig)" => "29",
+        "Deutsche Rentenversicherung Knappschaft-Bahn-See (Wirtschaftsbereich Bahn)" => "38",
+        "Deutsche Rentenversicherung Knappschaft-Bahn-See (Wirtschaftsbereich Seefahrt)" => "39",
+        // 42 - 79 = (following area codes are equivalent to the area codes of the regional pension provider + 40
+        "Deutsche Rentenversicherung Bund Nord (Mecklenburg-Vorpommern)" => "42",
+        "Deutsche Rentenversicherung Bund Mitteldeutschland (Thüringen)" => "43",
+        "Deutsche Rentenversicherung Bund Berlin-Brandenburg (Brandenburg)" => "44",
+        "Deutsche Rentenversicherung Bund Mitteldeutschland (Sachsen-Anhalt)" => "48",
+        "Deutsche Rentenversicherung Bund Mitteldeutschland (Sachsen)" => "49",
+        "Deutsche Rentenversicherung Bund Braunschweig-Hannover (Hannover)" => "50",
+        "Deutsche Rentenversicherung Bund Westfalen" => "51",
+        "Deutsche Rentenversicherung Bund Hessen" => "52",
+        "Deutsche Rentenversicherung Bund Rheinland (Rheinprovinz)" => "53",
+        "Deutsche Rentenversicherung Bund Bayern Süd (Oberbayern)" => "54",
+        "Deutsche Rentenversicherung Bund Bayern Süd (Niederbayern-Oberpfalz)" => "55",
+        "Deutsche Rentenversicherung Bund Rheinland-Pfalz" => "56",
+        "Deutsche Rentenversicherung Bund Saarland" => "57",
+        "Deutsche Rentenversicherung Bund Nordbayern (Ober- und Mittelfranken)" => "58",
+        "Deutsche Rentenversicherung Bund Nord (Hamburg)" => "59",
+        "Deutsche Rentenversicherung Bund Nordbayern (Unterfranken)" => "60",
+        "Deutsche Rentenversicherung Bund Schwaben" => "61",
+        "Deutsche Rentenversicherung Bund Baden-Württemberg (Württemberg)" => "63",
+        "Deutsche Rentenversicherung Bund Baden-Württemberg (Baden)" => "64",
+        "Deutsche Rentenversicherung Bund Berlin-Brandenburg (Berlin)" => "65",
+        "Deutsche Rentenversicherung Bund Nord (Schleswig-Holstein)" => "66",
+        "Deutsche Rentenversicherung Bund Oldenburg-Bremen" => "68",
+        "Deutsche Rentenversicherung Bund Braunschweig-Hannover (Braunschweig)" => "69",
+        "Deutsche Rentenversicherung Bund Knappschaft-Bahn-See (Wirtschaftsbereich Bahn)" => "78",
+        "Deutsche Rentenversicherung Bund Knappschaft-Bahn-See (Wirtschaftsbereich Seefahrt)" => "79",
+        "Zentrale Zulagenstelle für Altersvermögen (Zulagenummer nach § 90 I 2 EStG)" => "40",
+        "Knappschaft-Bahn-See (Berlin, Bremen, Hamburg, Niedersachsen, Westfalen und Schleswig-Holstein)" => "80",
+        "Knappschaft-Bahn-See (Hessen und Rheinprovinz)" => "81",
+        "Knappschaft-Bahn-See (Baden-Württemberg, Bayern, Rheinland-Pfalz und Saarland)" => "82",
+        "Knappschaft-Bahn-See (Brandenburg, Mecklenburg-Vorpommern, Sachsen-Anhalt, Sachsen und Thüringen)" => "89"
     );
 
     /**
@@ -67,6 +104,26 @@ class SINValidator
     }
 
     /**
+     * Setter for AREA_NUMBERS
+     * 
+     * @param array $areaNumbers Array with area numbers of the insurances
+     * 
+     * @return void
+     */
+    public function setAreaNumbers(array $areaNumbers) : void {
+        $this->_AREA_NUMBERS = $areaNumbers;
+    }
+
+    /**
+     * Getter for AREA_NUMBERS
+     * 
+     * @return array
+     */
+    public function getAreaNumbers() : array {
+        return $this->_AREA_NUMBERS;
+    }
+
+    /**
      * Disassambles SIN into parts that need to be validated.
      * 
      * @param string $sin Social insurance number
@@ -82,9 +139,8 @@ class SINValidator
         // first 2 digits
         $areaCode                  = str_split($sin, 2)[0];
 
-        // start at third digit, length = 7
-        // TODO: check, birthday should be just 6 digits!
-        $birthDay                  = substr($sin, 2, 7);
+        // start at third digit, length = 6
+        $birthDay                  = substr($sin, 2, 6);
 
         // array at position 8 (starting at index 0)
         $startingLetterOfBirthname = $sin[8];
@@ -96,8 +152,8 @@ class SINValidator
         $checksum                  = $sin[11];
 
         array_push($disassambledSIN, [
-            "arrayCode"                 => $areaCode,
-            "birthDay"                  => $birthDay,
+            "areaCode"                  => $areaCode,
+            "birthday"                  => $birthDay,
             "startingLetterOfBirthname" => $startingLetterOfBirthname,
             "genderSerialNumer"         => $genderSerialNumer,
             "checksum"                  => $checksum
@@ -113,7 +169,7 @@ class SINValidator
      * 
      * @return bool
      */
-    public function validateLength($sin) : bool {
+    public function validateLength(string $sin) : bool {
         $sin = preg_replace('/\s+/', '', $sin);
 
         // remove array offset (-1)
@@ -124,50 +180,40 @@ class SINValidator
     }
 
     /**
+     * Helper for creating dynamic area codes for "Deutsche Rentenversicherung Bund"
+     * 
+     * @return array
+     */
+    public function getHelperArray() : array {
+        // array keys
+        $areaCodes = $this->getAreaNumbers();
+
+        // array values
+        $areaKeys  = array_keys($areaCodes);
+
+        return [
+            'areaKeys'  => $areaKeys,
+            'areaCodes' => $areaCodes
+        ];
+    }
+
+    /**
      * Validator for area code of social insurance number
+     * Return false if sin area code not part of valid area codes, otherwise true
      * 
      * @param string $sin Social insurance number
      * 
-     * @return string|false
+     * @return bool
      */
-    public function validateArea($sin) : string|false {
-        // $sinArea = substr($sin, 2, 7);
-        $sinArea = $this->disassambleSIN($sin);
-        $arrayNo = [];
+    public function validateArea(string $sin) : bool {
+        $sin       = $this->disassambleSIN($sin);
+        $areaCodes = $this->getHelperArray()['areaCodes'];
 
-        // TODO
-        $sinArea["arrayCode"] = str_replace('"', '', $sinArea["arrayCode"]);
-        print_r("3. sin area: " . json_encode($sinArea["arrayCode"]));
-        echo "<br />";
-
-        // TODO: if sinArea part of $AREA_NUMBERS
-        foreach ($this->_AREA_NUMBERS as $arrayNumbers) {
-            // foreach ($arrayNumbers as $an) {
-            //     // remove whitespaces
-            //     // print_r($an);
-            //     $an = trim($an);
-
-            //     // add to array
-            //     array_push($arrayNo, $an);
-            // }
-            // print("<pre>");
-            // print_r($arrayNumbers);
-            // print("</pre>");
-            foreach ($arrayNumbers as $partialArrayNumbers) {
-                if (is_array($partialArrayNumbers)) {
-                    foreach ($partialArrayNumbers as $pan) {
-                        echo in_array($sin, $arrayNo);
-                    }
-                }
-            }
+        if (in_array($sin['areaCode'], $areaCodes)) {
+            return true;
         }
-        // print_r($arrayNo);
 
-        // check if area code is exciting
-        // print_r(in_array($sin, $arrayNo));
-
-        // return json_encode($arrayNo);
-        return "";
+        return false;
     }
 
     /**
@@ -177,8 +223,8 @@ class SINValidator
      * 
      * @return string
      */
-    public function extractStartingLetterOfBirthname(array $sin) : string {
-        return json_encode($sin[2]);
+    public function extractStartingLetterOfBirthname(string $sin) : string {
+        return $this->disassambleSIN($sin)["startingLetterOfBirthname"];
     }
 
     /** 
@@ -190,21 +236,31 @@ class SINValidator
      */
     public function validateBirthday($sin) : string {
         // filter birthday from SIN
-        $birthDay = $this->disassambleSIN($sin);
-        $birthDay = $birthDay[0][1];
+        $sinBirthDay = $this->disassambleSIN($sin);
+        $sinBirthDay = $sinBirthDay["birthday"];
 
         // generate array for comparison (DD/MM/YY)
-        $birthDay = str_split($birthDay, 2);
+        $sinBirthDay = str_split($sinBirthDay, 2);
 
         $dateValidator = new DateTime();
-        $day           = $birthDay[0];
-        $month         = $birthDay[1];
-        $year          = $birthDay[2];
+        $day           = $sinBirthDay[0];
+        $month         = $sinBirthDay[1];
+        $year          = $sinBirthDay[2];
 
         $dateValidator->setDate($year, $month, $day);
-        $birthDay      = $dateValidator->format('d-m-y');
+        $sinBirthDay   = $dateValidator->format('d-m-y');
 
-        return $birthDay;        
+        return $sinBirthDay;
+    }
+
+    /**
+     * Validation of gender code of sin
+     * 
+     * @param string $sin
+     * 
+     * @return int
+     */
+    public function validateGenderCode(string $sin) : int {
     }
 
     /**
