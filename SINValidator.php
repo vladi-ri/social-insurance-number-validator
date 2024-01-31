@@ -217,7 +217,7 @@ class SINValidator
     }
 
     /**
-     * Extract first letter of birthname from SIN.
+     * Helper to extract first letter of birthname from SIN.
      * 
      * @param array $sin
      * 
@@ -225,6 +225,20 @@ class SINValidator
      */
     public function extractStartingLetterOfBirthname(string $sin) : string {
         return $this->disassambleSIN($sin)["startingLetterOfBirthname"];
+    }
+
+    /**
+     * Checks if letter in sin is in German alphabet.
+     * 
+     * @param string $sin
+     * 
+     * @return bool
+     */
+    public function isLetterValid(string $sin) : bool {
+        $alphabet                  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);
+
+        return str_contains($alphabet, $startingLetterOfBirthname);
     }
 
     /** 

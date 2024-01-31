@@ -24,6 +24,9 @@
     print_r("4. birthday: " . $validator->validateBirthday($sin));
     echo "<br />";
     print_r("5. first letter of birthname: " . $validator->extractStartingLetterOfBirthname($sin));
+    echo "<br />";
+    print_r("6. is letter valid: " . $validator->isLetterValid($sin));
+    echo "<br />";
 
     // TODO:
     // 6. serial number (gender code)
