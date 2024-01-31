@@ -27,7 +27,7 @@
     echo "<br />";
     print_r("6. is letter valid: " . $validator->isLetterValid($sin));
     echo "<br />";
+    print_r("7. gender code: " . $validator->validateGenderCode($sin));
+    echo "<br />";
 
-    // TODO:
-    // 6. serial number (gender code)
     // 7. checksum

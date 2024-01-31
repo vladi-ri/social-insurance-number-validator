@@ -146,7 +146,7 @@ class SINValidator
         $startingLetterOfBirthname = $sin[8];
 
         // two digits for defining gender at position 9
-        $genderSerialNumer         = substr($sin, 9, 2);
+        $genderSerialNumber        = substr($sin, 9, 2);
 
         // checksum at position 11
         $checksum                  = $sin[11];
@@ -155,7 +155,7 @@ class SINValidator
             "areaCode"                  => $areaCode,
             "birthday"                  => $birthDay,
             "startingLetterOfBirthname" => $startingLetterOfBirthname,
-            "genderSerialNumer"         => $genderSerialNumer,
+            "genderSerialNumber"        => $genderSerialNumber,
             "checksum"                  => $checksum
         ]);
 
@@ -270,11 +270,21 @@ class SINValidator
     /**
      * Validation of gender code of sin
      * 
-     * @param string $sin
+     * @param string $sin Given social insurance number
      * 
-     * @return int
+     * @return string
      */
-    public function validateGenderCode(string $sin) : int {
+    public function validateGenderCode(string $sin) : string|false {
+        // filter gender serial number from SIN
+        $sin       = $this->disassambleSIN($sin);
+        $sinGender = $sin["genderSerialNumber"];
+        $sinGender = intval($sinGender);
+
+        if ($sinGender >= 0 && $sinGender <= 99) {
+            return $sinGender < 10 ? '0' . $sinGender : $sinGender;
+        }
+
+        return false;
     }
 
     /**
