@@ -20,3 +20,5 @@
     print_r("2. valid length: " . $validator->validateLength($sin));
     echo "<br />";
     print_r("3. valid area: " . $validator->validateArea($sin));
+    echo "<br />";
+    print_r("4. valid date: " . $validator->validateBirthday($sin));

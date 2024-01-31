@@ -74,10 +74,10 @@ class SINValidator
      * @return string
      */
     public function disassambleSIN(string $sin) : array {
-        $disassambledSIN = [];
+        $disassambledSIN           = [];
 
         // normalize SIN - remove whitespaces
-        $sin = preg_replace('/\s+/', '', $sin);
+        $sin                       = preg_replace('/\s+/', '', $sin);
 
         // first 2 digits
         $areaCode                  = str_split($sin, 2)[0];
@@ -95,14 +95,14 @@ class SINValidator
         $checksum                  = $sin[11];
 
         array_push($disassambledSIN, [
-            $areaCode,
-            $birthDay,
-            $startingLetterOfBirthname,
-            $genderSerialNumer,
-            $checksum
+            "arrayCode"                 => $areaCode,
+            "birthDay"                  => $birthDay,
+            "startingLetterOfBirthname" => $startingLetterOfBirthname,
+            "genderSerialNumer"         => $genderSerialNumer,
+            "checksum"                  => $checksum
         ]);
 
-        return $disassambledSIN;
+        return $disassambledSIN[0];
     }
 
     /**
@@ -114,9 +114,6 @@ class SINValidator
      */
     public function validateLength($sin) : bool {
         $sin = preg_replace('/\s+/', '', $sin);
-
-        print_r($sin);
-        echo "<br />";
 
         // remove array offset (-1)
         // 12 characters = array from 0 - 11
@@ -133,8 +130,14 @@ class SINValidator
      * @return string|false
      */
     public function validateArea($sin) : string|false {
-        $sinArea = substr($sin, 2, 7);
+        // $sinArea = substr($sin, 2, 7);
+        $sinArea = $this->disassambleSIN($sin);
         $arrayNo = [];
+
+        // TODO
+        $sinArea["arrayCode"] = str_replace('"', '', $sinArea["arrayCode"]);
+        print_r("3. sin area: " . json_encode($sinArea["arrayCode"]));
+        echo "<br />";
 
         // TODO: if sinArea part of $AREA_NUMBERS
         foreach ($this->_AREA_NUMBERS as $arrayNumbers) {
