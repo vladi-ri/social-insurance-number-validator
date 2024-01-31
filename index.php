@@ -31,3 +31,5 @@
     echo "<br />";
 
     // 7. checksum
+    print_r("8. check sum: " . $validator->checkSum($sin));
+    echo "<br />";

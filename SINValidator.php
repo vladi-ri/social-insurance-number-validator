@@ -228,6 +228,15 @@ class SINValidator
     }
 
     /**
+     * Define and return all letters of German alphabet.
+     * 
+     * @return string
+     */
+    public function getGermanAlphabet() : string {
+        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+
+    /**
      * Checks if letter in sin is in German alphabet.
      * 
      * @param string $sin
@@ -235,7 +244,7 @@ class SINValidator
      * @return bool
      */
     public function isLetterValid(string $sin) : bool {
-        $alphabet                  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $alphabet                  = $this->getGermanAlphabet();
         $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);
 
         return str_contains($alphabet, $startingLetterOfBirthname);
@@ -285,6 +294,42 @@ class SINValidator
         }
 
         return false;
+    }
+
+    /**
+     * Validate checksum of SIN
+     * 
+     * Steps:
+     * 1. Get position of letter in German alphabet
+     * 2. Weighting with 2, 1, 2, 5, 7, 1, 2, 1, 2, 1, 2 und 1
+     * 3. Replace sin letter with corresponding letter position in German alphabet
+     * 4. Get products of corresponding pairs
+     * 5. Get sum of digits (Quersumme)
+     * 6. Checksum = rest by using modulo 10
+     * 
+     * @param string $sin
+     * 
+     * @return string
+     */
+    public function checkSum(string $sin) : string {
+        // 1. Get position of letter in German alphabet
+        $sinLetter    = $this->disassambleSIN($sin)['startingLetterOfBirthname'];
+        $alphabet     = $this->getGermanAlphabet();
+        $letterPos    = strpos($alphabet, $sinLetter);
+
+        // 2. Gewichtung mit 2, 1, 2, 5, 7, 1, 2, 1, 2, 1, 2 und 1
+        // trim sin
+        $sin          = preg_replace('/\s+/', '', $sin);
+
+        // 3. Replace sin letter with corresponding letter position in German alphabet
+        $convertedSin = str_replace($sinLetter, $letterPos, $sin);
+
+        return $convertedSin;
+
+        // put weighting on sin
+        $weighting = [2, 1, 2, 5, 7, 1, 2, 1, 2, 1, 2, 1];
+
+        return $sinLetter < 10 ? '0' . $letterPos : $letterPos;
     }
 
     /**
