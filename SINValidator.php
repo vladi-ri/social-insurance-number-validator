@@ -437,8 +437,6 @@ class SINValidator
             return false;
         }
 
-        print_r("Tested sin: " . $sin);
-
         return $sin;
     }
 };
