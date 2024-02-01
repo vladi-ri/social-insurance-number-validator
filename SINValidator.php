@@ -15,6 +15,12 @@ class SINValidator
     private int $_VALID_LENGTH  = 12;
 
     /**
+     * BASE 10 for checksum validation
+     * @var int $_BASE_10
+     */
+    private int $_BASE_10       = 10;
+
+    /**
      * Object variable for testing SIN 
      * @var string $_TEST_SIN
      */
@@ -284,7 +290,7 @@ class SINValidator
         $year          = $sinBirthDay[2];
 
         $dateValidator->setDate($year, $month, $day);
-        $sinBirthDay   = $dateValidator->format('d-m-y');
+        $sinBirthDay   = $dateValidator->format('m-d-y');
 
         return $sinBirthDay;
     }
@@ -407,9 +413,32 @@ class SINValidator
      * @return bool
      */
     function validateSocialInsuranceNumber(string $sin) : bool {
-        $this->validateLength($sin);
-        $this->validateArea($sin);
+        // ### TESTING EVERY STEP ###
+        $length                    = $this->validateLength($sin);
+        $area                      = json_encode($this->validateArea($sin));
+        $birthDay                  = $this->validateBirthday($sin);
+        $isBirthdayValid           = checkdate(intval($birthDay[0]), intval($birthDay[1]), intval($birthDay[2]));
+        $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);
+        $isLetterValid             = $this->isLetterValid($startingLetterOfBirthname);
+        $genderSerialNumber        = $this->validateGenderCode($sin);
+        $checksum                  = $this->calculateChecksum($this->calculateCrossSum($this->checkSum($sin)), $this->_BASE_10);
 
-        return false;
+        if ($length !== true) {
+            return false;
+        } else if ($area !== true) {
+            return false;
+        } else if ($isBirthdayValid !== true) {
+            return false;
+        } else if ($isLetterValid !== true) {
+            return false;
+        } else if ($genderSerialNumber == false) {
+            return false;
+        } else if (!$checksum) {
+            return false;
+        }
+
+        print_r("Tested sin: " . $sin);
+
+        return $sin;
     }
 };
