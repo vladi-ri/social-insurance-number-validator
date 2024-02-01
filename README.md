@@ -19,3 +19,12 @@ Validator for social insurance number in Germany
     <?php $sin       = $validator->getSIN(); ?>
 ### 3. Call main method of SINValidator
     <?php $validator->validateSocialInsuranceNumber($sin)); ?>
+
+## Current Release
+### v1.0
+- Validation of example social insurance number, that is statically written into code.
+
+## Future Releases
+### v1.1
+- Basic Form with input field for social insurance number
+- Validation of SIN with social insurance number from user input
