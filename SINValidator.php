@@ -290,7 +290,7 @@ class SINValidator
         $year          = $sinBirthDay[2];
 
         $dateValidator->setDate($year, $month, $day);
-        $sinBirthDay   = $dateValidator->format('m-d-y');
+        $sinBirthDay   = date_format($dateValidator, 'm-d-y');
 
         return $sinBirthDay;
     }
@@ -422,7 +422,6 @@ class SINValidator
         $length                    = $this->validateLength($sin);
         $area                      = $this->validateArea($sin);
         $birthDay                  = $this->validateBirthday($sin);
-        $isBirthdayValid           = checkdate(intval($birthDay[0]), intval($birthDay[1]), intval($birthDay[2]));
         $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);
         $isLetterValid             = $this->isLetterValid($startingLetterOfBirthname);
         $genderSerialNumber        = $this->validateGenderCode($sin);
@@ -433,7 +432,7 @@ class SINValidator
             array_push($errors, "invalid length");
         } else if ($area !== true) {
             array_push($errors, "invalid area code");
-        } else if ($isBirthdayValid !== true) {
+        } else if ($birthDay == false) {
             array_push($errors, "invalid birth day");
         } else if ($isLetterValid !== true) {
             array_push($errors, "invalid first letter of surname");
