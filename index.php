@@ -30,6 +30,9 @@
     print_r("7. gender code: " . $validator->validateGenderCode($sin));
     echo "<br />";
 
-    // 7. checksum
-    print_r("8. check sum: " . $validator->checkSum($sin));
+    // 8. checksum
+    print_r("8.1. converted SIN: " . json_encode($validator->checkSum($sin)));
     echo "<br />";
+    print_r("8.2. cross sum: " . $validator->calculateCrossSum($validator->checkSum($sin)));
+    echo "<br />";
+    print_r("8.3. calculate checksum: " . $validator->calculateChecksum($validator->calculateCrossSum($validator->checkSum($sin)), 10));
