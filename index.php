@@ -4,10 +4,12 @@
     $validator = new SINValidator("04 260887 M 08 0");
     $sin       = $validator->getSIN();
 
+    print_r("Disassambled SIN: " . json_encode($validator->disassambleSIN($sin)));
+    echo "<br />";
     print_r("Checked SIN: " . $sin);
     echo "<br />";
-    print_r( "Valid SIN: " . $validator->validateSocialInsuranceNumber($sin));
-    
+    print_r( "Valid SIN: " . json_encode($validator->validateSocialInsuranceNumber($sin)));
+
     // // ### TESTING EVERY STEP ###
     // print_r("1. disassembled sin: " . json_encode($validator->disassambleSIN($sin)));
     // echo "<br />";

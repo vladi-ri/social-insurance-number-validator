@@ -162,13 +162,13 @@ class SINValidator
         $birthDay                  = substr($sin, 2, 6);
 
         // array at position 8 (starting at index 0)
-        $startingLetterOfBirthname = $sin[8];
+        $startingLetterOfBirthname = substr($sin, 8, 1);
 
         // two digits for defining gender at position 9
         $genderSerialNumber        = substr($sin, 9, 2);
 
         // checksum at position 11
-        $checksum                  = $sin[11];
+        $checksum                  = substr($sin, 11, 1);
 
         array_push($disassambledSIN, [
             "areaCode"                  => $areaCode,
