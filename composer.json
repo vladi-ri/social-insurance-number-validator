@@ -1,32 +1,11 @@
 {
-    "name": "vladiri/social_insurance_number_validator",
-    "type": "project",
-    "description": "Validator for German social insurance number",
-    "keywords": ["social", "insurance", "number", "SIN", "validator"],
-    "license": "MIT",
+    "name": "VladiRi/social_insurance_number_validator",
+    "description": "Social insurance number validator for german SIN.",
     "autoload": {
         "psr-4": {
-            "vladi-ri\\SocialInsuranceNumberValidator\\": "src/"
+            "VladiRi\\social_insurance_number_validator\\": "src/"
         }
-    },
-    "config": {
-        "platform": {
-            "php": "8.2"
-        },
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true,
-        "allow-plugins": {}
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "authors": [
-        {
-            "name": "Vladislav Riemer",
-            "email": "riemer-vladi@web.de"
-        }
-    ],
-    "require": {
-        "php": "^7.4||^8.0"
-    }
+    "prefer-stable": true
 }

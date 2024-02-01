@@ -1,7 +1,5 @@
 <?php
 
-namespace VladiRi\SocialInsuranceNumberValidator;
-
 /**
  * SINValidator
  * 
