@@ -276,7 +276,7 @@ class SINValidator
      * 
      * @return string
      */
-    public function validateBirthday($sin) : string {
+    public function validateBirthday(string $sin) : string {
         // filter birthday from SIN
         $sinBirthDay = $this->disassambleSIN($sin);
         $sinBirthDay = $sinBirthDay["birthday"];
