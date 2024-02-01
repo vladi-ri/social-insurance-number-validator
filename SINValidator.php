@@ -265,8 +265,9 @@ class SINValidator
     public function isLetterValid(string $sin) : bool {
         $alphabet                  = $this->getGermanAlphabet();
         $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);
+        $alphabetContainsLetter    = str_contains($alphabet, $startingLetterOfBirthname);
 
-        return str_contains($alphabet, $startingLetterOfBirthname);
+        return $alphabetContainsLetter;
     }
 
     /** 
@@ -434,7 +435,7 @@ class SINValidator
             array_push($errors, "invalid area code");
         } else if ($birthDay == false) {
             array_push($errors, "invalid birth day");
-        } else if ($isLetterValid !== true) {
+        } else if ($isLetterValid === false) {
             array_push($errors, "invalid first letter of surname");
         } else if ($genderSerialNumber == false) {
             array_push($errors, "invalid gender serial number");
