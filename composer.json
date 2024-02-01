@@ -1,0 +1,11 @@
+{
+    "name": "VladiRi/social_insurance_number_validator",
+    "description": "Social insurance number validator for german SIN.",
+    "autoload": {
+        "psr-4": {
+            "VladiRi\\social_insurance_number_validator\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
