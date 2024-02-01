@@ -420,7 +420,7 @@ class SINValidator
     function validateSocialInsuranceNumber(string $sin) : string|array {
         // ### TESTING EVERY STEP ###
         $length                    = $this->validateLength($sin);
-        $area                      = json_encode($this->validateArea($sin));
+        $area                      = $this->validateArea($sin);
         $birthDay                  = $this->validateBirthday($sin);
         $isBirthdayValid           = checkdate(intval($birthDay[0]), intval($birthDay[1]), intval($birthDay[2]));
         $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);

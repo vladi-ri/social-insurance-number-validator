@@ -11,6 +11,9 @@
     print_r("Valid SIN: " . json_encode($validator->validateSocialInsuranceNumber($sin)));
 
     // // ### TESTING EVERY STEP ###
+    // print_r("<br /><br />");
+    // print_r("###########################################################");
+    // print_r("<br />###################### TESTING AREA ######################<br/>");
     // print_r("1. disassembled sin: " . json_encode($validator->disassambleSIN($sin)));
     // echo "<br />";
     // print_r("2. valid length: " . $validator->validateLength($sin));
