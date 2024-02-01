@@ -294,7 +294,7 @@ class SINValidator
      * 
      * @param string $sin Given social insurance number
      * 
-     * @return string
+     * @return string|false
      */
     public function validateGenderCode(string $sin) : string|false {
         // filter gender serial number from SIN
