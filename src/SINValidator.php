@@ -239,7 +239,7 @@ class SINValidator
     /**
      * Helper to extract first letter of birthname from SIN.
      * 
-     * @param array $sin
+     * @param string $sin Given social insurance number
      * 
      * @return string
      */
@@ -259,7 +259,7 @@ class SINValidator
     /**
      * Checks if letter in sin is in German alphabet.
      * 
-     * @param string $sin
+     * @param string $sin Given social insurance number
      * 
      * @return bool
      */
@@ -328,7 +328,7 @@ class SINValidator
      * 5. Get sum of digits (Quersumme)
      * 6. Checksum = rest by using modulo 10
      * 
-     * @param string $sin
+     * @param string $sin Given social insurance number
      * 
      * @return array
      */
