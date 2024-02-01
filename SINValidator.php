@@ -424,16 +424,22 @@ class SINValidator
         $checksum                  = $this->calculateChecksum($this->calculateCrossSum($this->checkSum($sin)), $this->_BASE_10);
 
         if ($length !== true) {
+            print ("invalid length");
             return false;
         } else if ($area !== true) {
+            print ("invalid area code");
             return false;
         } else if ($isBirthdayValid !== true) {
+            print ("invalid birth day");
             return false;
         } else if ($isLetterValid !== true) {
+            print ("invalid first letter of surname");
             return false;
         } else if ($genderSerialNumber == false) {
+            print ("invalid gender serial number");
             return false;
         } else if (!$checksum) {
+            print ("invalid checksum");
             return false;
         }
 
