@@ -19,6 +19,10 @@
     echo "<br />";
     print_r("7. gender code: " . $validator->validateGenderCode($sin));
     echo "<br />";
-    // TODO: 8. checksum
-    print_r("8. checksum: " . "TODO!";
+    echo "8. Checksum validation: ";
     echo "<br />";
+    print_r("8.1. converted SIN: " . json_encode($validator->checkSum($sin)));
+    echo "<br />";
+    print_r("8.2. cross sum of digits: " . $validator->calculateCrossSum($validator->checkSum($sin)));
+    echo "<br />";
+    print_r("8.3. calculate checksum: " . $validator->calculateChecksum($validator->calculateCrossSum($validator->checkSum($sin)), 10));

@@ -21,6 +21,12 @@ class SINValidator
     private string $_TEST_SIN   = "03 160894 W 098";
 
     /**
+     * Given weighting for checksum validation.
+     * @var array $_WEIGHTING
+     */
+    private array $_WEIGHTING   = [2, 1, 2, 5, 7, 1, 2, 1, 2, 1, 2, 1];
+
+    /**
      * Defines valid area codes for social insurance number in Germany.
      * @var array $_AREA_NUMBERS
      */
@@ -235,6 +241,15 @@ class SINValidator
     }
 
     /**
+     * Define and return all letters of German alphabet.
+     * 
+     * @return string
+     */
+    public function getGermanAlphabet() : string {
+        return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    }
+
+    /**
      * Checks if letter in sin is in German alphabet.
      * 
      * @param string $sin
@@ -242,7 +257,7 @@ class SINValidator
      * @return bool
      */
     public function isLetterValid(string $sin) : bool {
-        $alphabet                  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $alphabet                  = $this->getGermanAlphabet();
         $startingLetterOfBirthname = $this->extractStartingLetterOfBirthname($sin);
 
         return str_contains($alphabet, $startingLetterOfBirthname);
@@ -292,6 +307,96 @@ class SINValidator
         }
 
         return false;
+    }
+
+    /**
+     * Validate checksum of SIN
+     * 
+     * Steps:
+     * 1. Get position of letter in German alphabet
+     * 2. Weighting with 2, 1, 2, 5, 7, 1, 2, 1, 2, 1, 2 und 1
+     * 3. Replace sin letter with corresponding letter position in German alphabet
+     * 4. Get products of corresponding pairs
+     * 5. Get sum of digits (Quersumme)
+     * 6. Checksum = rest by using modulo 10
+     * 
+     * @param string $sin
+     * 
+     * @return array
+     */
+    public function checkSum(string $sin) : array {
+        // 1. Get position of letter in German alphabet
+        $sinLetter    = $this->disassambleSIN($sin)['startingLetterOfBirthname'];
+        $alphabet     = $this->getGermanAlphabet();
+        $letterPos    = strpos($alphabet, $sinLetter);
+
+        // 2. Weighting with given weighting array
+        // trim sin
+        $sin          = preg_replace('/\s+/', '', $sin);
+
+        // 3. Replace sin letter with corresponding letter position in German alphabet
+        $convertedSin = str_replace($sinLetter, $letterPos, $sin);
+
+        // put weighting on sin
+        $weighting    = $this->_WEIGHTING;
+
+        // convert convertedSin to array for comparison
+        $convertedSin = str_split($convertedSin, 1);
+
+        // first multiply each indexes of both arrays with each other
+        // if the length of the two arrays are not the same
+        // 1. unify length for comparison
+        $length       = 0;
+
+        if (count($convertedSin) <= count($weighting)) {
+            $length = count($convertedSin);
+        } else {
+            $length = count($weighting);
+        }
+
+        $multipliedDigits = [];
+
+        // 2. multiply the items together
+        for ($i = 0; $i < $length; $i++) {
+            array_push($multipliedDigits, $convertedSin[$i] * $weighting[$i]);
+        }
+
+        return $multipliedDigits;
+    }
+
+    /**
+     * Helper for checksum generation
+     * Build cross sum
+     * 
+     * @param array $numbersArray Digits that have to be cross summed
+     * 
+     * @return int
+     */
+    public function calculateCrossSum(array $numbersArray) : int {
+        $crossSum     = 0;
+        $digitsString = implode($numbersArray);
+
+        for ($i = 0; $i < strlen($digitsString); $i++) {
+            $digitsArray[] = substr($digitsString, $i, 1);
+        }
+
+        foreach ($digitsArray as $digit) {
+            $crossSum += intval($digit);
+        }
+
+        return $crossSum;
+    }
+
+    /**
+     * Function to get the rest of cross sum calculation.
+     * 
+     * @param int $number Given cross sum
+     * @param int $base   Base for rest calculation
+     * 
+     * @return int
+     */
+    public function calculateChecksum(int $number, int $base) : int {
+        return $number % $base;
     }
 
     /**
