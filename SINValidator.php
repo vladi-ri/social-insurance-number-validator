@@ -408,11 +408,16 @@ class SINValidator
     /**
      * Main function for testing all validation functions
      * 
+     * Returns:
+     * 
+     * - string - in case of SIN validation was successful
+     * - array  - in case of SIN validation end with errors, return error array
+     * 
      * @param string $sin Given social insurance number
      * 
-     * @return bool
+     * @return string|array
      */
-    function validateSocialInsuranceNumber(string $sin) : bool {
+    function validateSocialInsuranceNumber(string $sin) : string|array {
         // ### TESTING EVERY STEP ###
         $length                    = $this->validateLength($sin);
         $area                      = json_encode($this->validateArea($sin));
@@ -422,25 +427,24 @@ class SINValidator
         $isLetterValid             = $this->isLetterValid($startingLetterOfBirthname);
         $genderSerialNumber        = $this->validateGenderCode($sin);
         $checksum                  = $this->calculateChecksum($this->calculateCrossSum($this->checkSum($sin)), $this->_BASE_10);
+        $errors                    = [];
 
         if ($length !== true) {
-            print ("invalid length");
-            return false;
+            array_push($errors, "invalid length");
         } else if ($area !== true) {
-            print ("invalid area code");
-            return false;
+            array_push($errors, "invalid area code");
         } else if ($isBirthdayValid !== true) {
-            print ("invalid birth day");
-            return false;
+            array_push($errors, "invalid birth day");
         } else if ($isLetterValid !== true) {
-            print ("invalid first letter of surname");
-            return false;
+            array_push($errors, "invalid first letter of surname");
         } else if ($genderSerialNumber == false) {
-            print ("invalid gender serial number");
-            return false;
+            array_push($errors, "invalid gender serial number");
         } else if (!$checksum) {
-            print ("invalid checksum");
-            return false;
+            array_push($errors, "invalid checksum");
+        }
+
+        if (!empty($errors)) {
+            return $errors;
         }
 
         return $sin;
