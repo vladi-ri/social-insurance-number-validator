@@ -1,9 +1,12 @@
 <?php
 
+namespace VladiRi\SocialInsuranceNumberValidator;
+
 /**
  * SINValidator
  * 
  * @package    SINValidator
+ * @version    1.0
  * @author     Vladislav Riemer <riemer-vladi@web.de>
  */
 class SINValidator
