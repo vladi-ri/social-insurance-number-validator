@@ -1,9 +1,9 @@
 {
-    "name": "VladiRi/social_insurance_number_validator",
+    "name": "vladi-ri/social_insurance_number_validator",
     "description": "Social insurance number validator for german SIN.",
     "autoload": {
         "psr-4": {
-            "VladiRi\\social_insurance_number_validator\\": "src/"
+            "vladi-ri\\social_insurance_number_validator\\": "src/"
         }
     },
     "minimum-stability": "dev",
